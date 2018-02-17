@@ -1,0 +1,7 @@
+emissions/__init__.py
+emissions/emissions.py
+emissions.egg-info/PKG-INFO
+emissions.egg-info/SOURCES.txt
+emissions.egg-info/dependency_links.txt
+emissions.egg-info/requires.txt
+emissions.egg-info/top_level.txt

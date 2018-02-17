@@ -5,7 +5,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 
 
 app = Flask(__name__)
-app.config.from_object(_name_)
+app.config.from_object(__name__)
 
 
 app.config.update(dict(
@@ -21,7 +21,7 @@ app.config.from_envvar('EMISSIONS_SETTINGS', silent=True) #Read into this later 
 # connection object
 def connect_db():
 	return sqlite3.connect(app.config['DATABASE'])
-	
+
 
 
 
