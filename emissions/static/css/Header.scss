@@ -1,0 +1,15 @@
+.header_container {
+  background-color: #4f8f3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+
+  .header_title {
+    color: white;
+    margin: 0;
+    font-size: 30px;
+  }
+}
+
