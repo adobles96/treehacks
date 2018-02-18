@@ -5,5 +5,35 @@
   flex-direction: column;
   align-items: center;
 
+  .introduction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    background: white;
+    margin-top: 20px;
+
+    .fa {
+      position: absolute;
+      top: 75px;
+      right: calc(10% + 5px);
+      color: grey;
+      cursor: pointer;
+    }
+    .quote {
+      color: #383838;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    p {
+      padding-left: 20px;
+      padding-right: 20px;
+      color: #383838;
+      text-align: center;
+    }
+  }
+
 }
 
