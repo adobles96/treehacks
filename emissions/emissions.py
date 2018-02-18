@@ -3,6 +3,10 @@ import sqlite3, csv, json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
 	render_template, flash
 
+mwatthrs_per_mile = 0.00034 #This is the kWh/Mile of a Tesla Model S85D 2015, the most popular electric car
+e10_lbs_per_gallon = 17.6 #according to US Energy Info. Administration for E10 gasoline mix
+avg_gpm = 1./26 #reciprocal of avg MPG of Toyota Camry (most popular gasoline car in US). Source: fuelly.com
+co2_consumed_per_tree = 26 #Source: Arbor Environmental Alliance
 
 app = Flask(__name__, static_folder="./static/dist", template_folder="./static")
 app.config.from_object(__name__)
@@ -63,8 +67,20 @@ def close_db(error):
 
 @app.route('/calculate', methods=['GET'])
 def calculate():
-    pass
-
+    db = get_db()
+    cur = db.cursor()
+    zipcode = (str(int(request.args['zipcode'])),)
+    cur.execute("SELECT subregion from zipper WHERE zip=?", zipcode)
+    subreg = cur.fetchone()
+    if not subreg:
+        return "ERROR"
+    cur.execute("SELECT rate,lineloss from data WHERE subregion=?", subreg)
+    rate, loss = [x for x in cur.fetchone()] #rate in lb/MWh
+    miles = float(request.args['miles'])*52
+    electric_lbs = (1/(1-loss))*rate*mwatthrs_per_mile*miles
+    gas_lbs = miles*e10_lbs_per_gallon*avg_gpm
+    co2_tree_equiv = (gas_lbs - electric_lbs)/co2_consumed_per_tree
+    return json.dumps({'electric':electric_lbs, 'gas':gas_lbs, 'trees': co2_tree_equiv})
 
 
 @app.route('/')
