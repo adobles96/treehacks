@@ -1,5 +1,6 @@
 # treehacks
-treehacks project
+For our treehacks project we build a simple web app that, given your geographic location, calculates the emissions savings from switching to an electric car accounting for emissions from power generation.
+
 Authors:
 * Devin Cintron
 * Alejandro Dobles
